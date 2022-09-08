@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block main %}
+{% load crispy_forms_tags %}
+{% if user.is_authenticated %}
+     
+    {% else %}
+    <div class="container d-flex justify-content-center mt-3">
+        <div class="loginf mt-4 p-4 rounded" style="background: #fffbfb;width:23rem;">
+
+            <style>
+                #div_id_username,#div_id_password{
+                    margin-top:1rem;
+                }
+                #div_id_password{
+                    margin-bottom: 1rem;
+                }
+            </style>
+    <form method="post" class="d-flex flex-column" novalidate>
+        {% csrf_token %}
+        {{ form.username|as_crispy_field }}
+        {{ form.password|as_crispy_field }}
+        <button type="submit" class="btn btn-success mt-3 p-2 px-5 shadow" style="font-size: 1.2rem;text-shadow: 4px 1px 3px #565353;">ورود مشاور</button>
+      </form>
+        </div>
+        </div>
+     {% endif%}
+    {% endblock%}

@@ -1,0 +1,97 @@
+@font-face {
+	font-family: "sahel"!important;
+	src: url(../fonts/Vazirmatn-Regular.woff2) format("eot"), url(../fonts/Vazirmatn-Regular.woff2) format("truetype"), url(../fonts/Vazirmatn-Regular.woff2) format("woff");
+}
+body{
+    font-family: 'vazir'!important;
+    font-size:1.2rem !important;
+}
+
+.text a{
+    font-size: 1rem !important;
+}
+
+#nav-sidebar a {
+    font-size: 1rem !important;
+}
+
+#result_list td,#result_list th{
+    font-size: 0.85rem!important;
+    font-family: 'sahel'!important;
+}
+
+#nav-sidebar .module td .addlink{
+    white-space: nowrap;
+    text-align: end;
+    font-size: .75rem!important;
+}
+
+#changelist-filter h3{
+    font-weight: 700 !important;
+}
+
+#changelist-filter li a{
+    font-size: .94rem!important;
+    overflow: hidden!important;
+}
+
+
+ /* --  Bootstrap Admin -_ */
+
+#nav-sidebar table{
+    display: flex!important;
+    flex-direction: column!important;
+}
+h1{
+    font-size: 1.6rem!important;
+}
+h2{
+  font-size: 1.34rem;  
+}
+h3{
+    font-size: 1.1rem!important;
+}
+#content-main > .app-app > table ,#content-main > .app-auth > table{
+    display: flex!important;
+    flex-direction: column!important;   
+}
+#content-main a {
+    font-size:.90rem!important;
+}
+.submit-row a.deletelink
+{
+    height:auto!important;
+}
+.aligned label{
+    font-size: .95rem!important;
+}
+
+#changelist-search input[type='text']{
+    height: auto!important;
+}
+
+#user-tools a{
+    font-size: 1rem!important;
+}
+
+a.closelink{
+    height: auto!important;
+}
+  a.cancel-link{
+    height: auto!important;
+    border-radius: 4px!important;
+    padding: 10px 15px !important;
+    font-size:1.2rem!important;
+    line-height:inherit!important;
+}
+
+.sticky > #nav-filter{
+    display: none!important;
+}
+
+#changelist-filter h2{
+    font-size: 17px!important;
+    border-radius: 4px!important;
+    padding: 5px 15px!important;
+    font-weight: 600;
+}

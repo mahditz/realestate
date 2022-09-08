@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}الماس اکباتان {% endblock %}</title>
+  {% block stylebase %}
+  <link rel="stylesheet" href="{% static 'app/css/style.bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'app/css/style.fontawesome.css' %}">
+  <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'app/css/menu.css' %}">
+{% endblock %}
+</head>
+
+<body class="d-flex flex-column">
+  <header class="position-relative">
+    <div class="header d-flex flex-column">
+      <div class="header-menu">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg bg-dark navbar-dark rounded">
+            <a class="navbar-brand" href=""><img src="{% static 'app/images/logo.png' %}" style="width:40px;height:40px;" alt="Logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+              <div class="container-fluid">
+                <ul class="navbar-nav d-flex justify-content-center">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">صفحه اصلی</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">املاک ثبت شده</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/admin">ثبت درخواست ملک</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">سوالات متداول</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">تماس با ما</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div class="headText container text-center align-self-center p-5 mb-4">
+        <h2>مشاور املاک الماس اکباتان</h2>
+        <p>سامانه خرید و فروش - رهن و اجاره ملک
+          از خانه با ما ، خانه دار شوید !!</p>
+
+      </div>
+      {% block moptions%} {% endblock %}
+    </div>
+    </div>
+  </header>
+  {% block search %} {% endblock %}
+  <section class="main flex-grow-1">
+ {% block main %} {% endblock%} 
+  </section>
+  <footer class="bg-dark text-white text-center py-4 mt-5">
+    <div class="container-fluid"><span>© تمام حقوق این سایت متعلق به مشاور املاک الماس اکباتان میباشد.</span></div>
+  </footer>
+  {% block jslib %}
+  <script src="{% static 'app/js/bootstrap.js' %}"></script>
+  <script type="text/javascript" src="{% static 'app/js/menu.js' %}"></script>
+   <script type="text/javascript" src="{% static 'app/js/jquery-3.6.0.min.js' %}"></script>
+    <script>
+      (function($) {
+        $.fn.prettynumber = function(options) {
+          var opts = $.extend({}, $.fn.prettynumber.defaults, options);
+          return this.each(function() {
+            $this = $(this);
+            var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
+            var str = $this.html();
+            $this.html($this.html().toString().replace(new RegExp("(^\\d{"+($this.html().toString().length%3||-1)+"})(?=\\d{3})"),"$1"+o.delimiter).replace(/(\d{3})(?=\d)/g,"$1"+o.delimiter));
+          });
+        };
+        $.fn.prettynumber.defaults = {
+          delimiter       : '.'	
+        };
+      })($);
+      
+        </script>
+{% endblock %}
+</body>
+</html>

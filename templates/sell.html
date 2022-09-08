@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% block title %}خرید و فروش ملک{% endblock %}
+
+{% block moptions %}
+<div class=" container cst d-flex justify-content-center">
+  <ul class="sdf d-flex">
+    <li><a href="  {% url 'sell' %}">خرید و فروش</a></li>
+    <li><a href="{% url 'rent' %}">رهن و اجاره</a></li>
+  </ul>
+</div>
+{% endblock %}
+
+
+{% block search %}
+<div class="hform container-fluid d-flex justify-content-center mb-3">
+  <form id="hform" method="POST" class="shadow-sm">
+    <div class="d-flex mt-2 p-3 row justify-content-between">
+      <div class="col-lg-2 col-md-6 d-flex flex-column">
+        <div class="label"><span>منطقه ملک</span></div>
+        <div class="custom-select-wrapper">
+          <div class="custom-select">
+            <div class="custom-select__trigger"><span>اکباتان</span>
+              <div class="arrow"></div>
+            </div>
+            <div class="custom-options">
+              <span class="custom-option" data-value="allaria">همه</span>
+              <span class="custom-option selected" data-value="ekbatan">اکباتان</span>
+              <span class="custom-option" data-value="bime">بیمه</span>
+            </div>
+          </div>
+        </div>
+      </div> 
+    
+      <div class="col-lg-3 col-md-6 d-flex flex-column">
+        <div class="label"><span>نوع ملک</span></div>
+        <div class="custom-select-wrapper">
+          <div class="custom-select">
+            <div class="custom-select__trigger"><span>آپارتمان</span>
+              <div class="arrow"></div>
+            </div>
+            <div class="custom-options">
+              <span class="custom-option" data-value="alltype">همه</span>
+              <span class="custom-option selected" data-value="apartment">آپارتمان</span>
+              <span class="custom-option" data-value="office">اداری و تجاری</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-5 d-flex flex-column JU">
+        <div class="label"><span>بازه قیمت (میلیارد)</span></div>
+        <div class="price d-flex justify-content-around position-relative">
+          <div class="d-flex flex-column">
+            <input name="maxp" type="number" id="maxp" value="100"><label for="maxp">max</label>
+            </div>
+          <div class="d-flex flex-column">
+          <input name="minp" type="number" id="minp" value="0"><label for="minp">min</label>
+          </div>
+        
+        </div>
+        </div>
+        <div class="col-lg-2 col-md-5 d-flex flex-column JU">
+          <div class="label"><span>بازه متراژ (متر)</span></div>
+          <div class="price d-flex justify-content-around position-relative">
+            <div class="d-flex flex-column">
+              <input name="metmax" type="number" id="metmax" value="1000"><label for="metmax">max</label>
+              </div>
+            <div class="d-flex flex-column">
+            <input name="metmin" type="number" id="metmin" value="0"><label for="metmin">min</label>
+            </div>
+          
+          </div>
+          </div>
+      <div class="col-lg-2 col-md-12 align-self-center d-flex ali">
+        <input type="hidden" data-value="12" id="cunt">
+        <input type="submit" id="search" class="btn btn-success px-5 py-3" value="جستجو">
+      </div>
+    </div>
+  </form>
+  <input type="hidden" data-value="allaria" id="areaps">
+  <input type="hidden" data-value="alltype" id="mtypeps">
+  <input type="hidden" data-value="0" id="minps">
+  <input type="hidden" data-value="1000000000000" id="maxps">
+  <input type="hidden" data-value="0" id="metminps">
+  <input type="hidden" data-value="10000" id="metmaxps">
+      </div>
+{% endblock %} 
+
+{% block main%}
+{% load humanize %}
+<style>
+  .sdf li:nth-child(1){
+    background: #5e897c!important;
+  }
+  .sdf li:nth-child(1) a{
+    color: white!important;
+    text-shadow: 1px 1px 1px #5f5f5f!important;
+  }
+</style>
+    <div class="container mbwi">
+      <div class="row">
+        {% for file in files %}
+        <div class="col-lg-4 col-xl-3 col-md-6 flex-column">
+          <div class="d-flex flex-row-reverse flex-md-column post mt-4 rounded shadow-sm border ">
+            <div class="imgContent">
+              <a href="{% url 'detsell' file.id %}">
+                <img class="rounded" src="{{file.image}}">
+              </a>
+            </div>
+            <div class="cpost d-flex flex-column">
+              <div class="titlePost">
+                <h2 class="citem text-black"><a href="{% url 'detsell' file.id %}">{{file.title}}</a> </h2>
+              </div>
+              <div class="tprice d-flex flex-column flex-grow-1">
+                <span>قیمت کل: <span class="totalPrice">{{ file.priceK|floatformat:0|intcomma:False }}</span> تومان</span>
+                <span>هر متر: <span class="priceM">{{ file.priceM|floatformat:0|intcomma:False }}</span> تومان</span>
+              </div>
+              <div class="details">
+                <div class="container d-flex justify-content-between">
+                <div><i class="fa fa-line-chart" aria-hidden="true"></i><span> {{file.metraj}} متر</span></div>
+                  <div><i class="fa fa-bed" aria-hidden="true"></i><span> {{file.room_qty}} خواب </span></div>
+                  <div> <i class="fa fa-calendar" aria-hidden="true"></i><span> {{file.building_age}}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       {% endfor %}
+      </div>
+    </div>
+ {% endblock %}
+ {% block jslib %}
+ {{block.super}}
+ <script>
+  function ssrch(n)
+  {
+    $.post("{{ request.path }}",
+    {
+      area   :  $("#areaps").attr("data-value"),
+      mtype  :  $("#mtypeps").attr("data-value"),
+      minp   :  $("#minps").attr("data-value"),
+      maxp   :  $("#maxps").attr("data-value"),
+      metmin :  $("#metminps").attr("data-value"),
+      metmax :  $("#metmaxps").attr("data-value"),
+      c      :  $("#cunt").attr("data-value"),
+    },
+    function(data,status){
+      if(n == 1){
+     $(".mbwi > .row").empty();
+      }
+     $.each(data["data"],function(k,v){
+        r = $("<div class='col-xl-3 col-lg-4 col-md-6 flex-column'><div class='d-flex flex-row-reverse flex-md-column post mt-4 rounded shadow-sm border '><div class='imgContent'><a href='#'><img class='rounded' src=''></a></div><div class='cpost d-flex flex-column'><div class='titlePost'><h2 class='citem text-black'><a href=''></a></h2></div><div class='tprice d-flex flex-column flex-grow-1'><span> قیمت کل : <span class='totalPrice'></span> تومان </span><span>قیمت هر متر : <span class='priceM'></span> تومان</span></div><div class='details'><div class='container d-flex justify-content-between'><div><i class='fa fa-line-chart' aria-hidden='true'></i><span id='metraj'></span></div><div><i class='fa fa-bed' aria-hidden='true'></i><span id='bed'></span></div><div><i class='fa fa-calendar' aria-hidden='true'></i><span id='cal'></span></div></div></div></div></div></div>");
+        r.find("img.rounded").attr("src",v.image);
+        r.find(".imgContent > a").attr("href","{{request.path}}"+"/"+v.id);
+        r.find(".titlePost .citem a").text(v.title);
+        r.find(".titlePost .citem a").attr("href","{{request.path}}"+"/"+v.id);
+        r.find(".totalPrice").text(v.priceK).prettynumber({delimiter : ','});
+        r.find(".priceM").text(v.priceM).prettynumber({delimiter : ','});
+        r.find("#metraj").text(" "+v.metraj+" متر");
+        r.find("#bed").text(" "+v.room_qty+" خواب");
+        r.find("#cal").text(" "+v.building_age);
+        $(r).appendTo(".mbwi > .row").hide().fadeIn(2000);
+        $("#cunt").attr("data-value",parseInt($("#cunt").attr("data-value"))+12);
+      });
+    });
+  }
+
+
+    $(document).ready(function(){
+      var counter = 0;
+      $("#search").click(function(e){
+          e.preventDefault();
+          $("#cunt").attr("data-value","0");
+          $("#areaps").attr("data-value",$("#hform > div > div").eq(0).find(".selected").attr("data-value"));
+          $("#mtypeps").attr("data-value",$("#hform > div > div").eq(1).find(".selected").attr("data-value"));
+          $("#minps").attr("data-value",$("#minp").val()*1000000000);
+          $("#maxps").attr("data-value",$("#maxp").val()*1000000000);
+          $("#metminps").attr("data-value", $("#metmin").val());
+          $("#metmaxps").attr("data-value",$("#metmax").val());
+          ssrch(1);
+          
+      });
+      if (counter == 0){
+        $(document.body).on('touchmove', function(e) {
+          counter++;
+          ssrch(2);
+      
+     });
+      $(window).scroll(function() {
+        if($(window).scrollTop() + $(window).height() == $(document).height()){ 
+          counter++;
+          ssrch(2);
+      }
+    });
+  }
+    });
+  </script>
+ {% endblock %}

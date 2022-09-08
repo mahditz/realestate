@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block stylebase %}
+<link rel="stylesheet" href="{% static 'app/css/style.bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/style.fontawesome.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+{% endblock %}
+{% block title %}فروش ملک در {{object.area}} {% endblock %}
+{% block main %}
+<style>
+   .imgfile{
+    position:relative;
+    }
+    .imgfile img {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+footer
+{
+position:initial;
+top:0px!important;
+}
+</style>
+<div class="container-fluid row justify-content-around mx-0">
+    <div class="contfile col-xxl-8 col-md-12 d-flex justify-content-xxl-center justify-content-center">
+    <div class="row sellfile mt-5 shadow bg-white px-3 py-2 flex-column">
+        <div class="headsell mb-3 col-12">
+            <a href="#">
+            {% if object.area.area == 'اکباتان' %}
+            <h4>خرید ملک شهرک اکباتان</h4>
+            {% else %}
+            <h4>خرید ملک {{object.area}}</h4>
+            {% endif %}
+                 </a>
+            <div class="title-sep"></div>
+        </div>
+     
+        <div class="mainsell overflow-hidden col-12">
+            <div class="row">
+                <div class="col-lg-3 py-2 col-12">
+                    <span class="label-data">کد ملک :</span>
+                    <span class="file-data">{{object.code}}</span>
+                </div>
+                <div class="col-lg-3 col-12 py-2">
+                    <span class="label-data">نوع ملک :</span>
+                    <span class="file-data">{{object.melktype}}</span>
+                </div>
+                <div class="col-lg-4 col-12 py-2">
+                    <span class="label-data">نام مالک :</span>
+                    <span class="file-data">{{object.nameM}}</span>
+                </div>
+                <div class="col-lg-2 col-12 py-2">
+                    <span class="label-data" style="width:43px;"> تاریخ :</span>
+                    <span class="file-data file-date">{{object.date}}</span>
+                </div>
+                <div class="col-lg-12 col-12 py-2">
+                    <span class="label-data"> تلفن :‌</span>
+                    <span class="file-data">{{object.mobile}} </span>
+                </div>
+                <div class="col-lg-8 col-12 py-2">
+                    <span class="label-data">آدرس :‌</span>
+                    <span class="file-data">{{object.adress}}</span>
+                </div>
+               
+              <div class="col-lg-4 col-6 py-2 d-flex justify-content-around text-center">
+                <div class="sidehome">
+                    <div class="sideone">
+                        شمالی   
+                    </div>
+                    <div class="sideone">
+                    {% if object.side == 'شمالی' %}
+                         <i class="fa fa-check-square-o for-print" aria-hidden="true"></i>   
+                        {% else %}
+                        <i class="fa fa-square-o for-print" aria-hidden="true"></i>   
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="sidehome">
+                    <div class="sideone">
+                        جنوبی   
+                    </div>
+                    <div class="sideone">
+                        {% if object.side == 'جنوبی' %}
+                         <i class="fa fa-check-square-o for-print" aria-hidden="true"></i>   
+                        {% else %}
+                        <i class="fa fa-square-o for-print" aria-hidden="true"></i>   
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="sidehome">
+                    <div class="sideone">
+                        غربی   
+                    </div>
+                    <div class="sideone">
+                        {% if object.side == 'غربی' %}
+                         <i class="fa fa-check-square-o for-print" aria-hidden="true"></i>   
+                        {% else %}
+                        <i class="fa fa-square-o for-print" aria-hidden="true"></i>   
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="sidehome">
+                    <div class="sideone">
+                        شرقی   
+                    </div>
+                    <div class="sideone">
+                        {% if object.side == 'شرقی' %}
+                         <i class="fa fa-check-square-o for-print" aria-hidden="true"></i>   
+                        {% else %}
+                        <i class="fa fa-square-o for-print" aria-hidden="true"></i>   
+                    {% endif %}   
+                    </div>
+                </div>
+                </div>
+              <div class="col-12">
+                <div class="line-file"></div>
+              </div>  
+              <div class="col-lg-6 col-6 d-md-flex flex-md-row d-flex flex-column ">
+                <span class="label-data">قیمت کل :</span>
+                <span class="file-data pricedet align-self-md-end">{{object.priceK}} تومان</span>
+              </div>
+              <div class="col-lg-6 col-6 d-md-flex flex-md-row d-flex flex-column">
+                <span class="label-data"> قیمت واحد :</span>
+                <span class="file-data pricedet align-self-md-end">{{object.priceM}} تومان</span>
+              </div>
+              <div class="col-12">
+                <div class="line-file"></div>
+              </div>  
+              <div class="col-12"> <span class="label-data" style="width: 104px !important;">مشخصات بنا :‌</span></div>
+              <div class="col-12">
+                <table class="table file-table overflow-hidden" id="file-table-md-lg">
+                    <tbody class="for-print text-center">
+                    <tr class="for-print">
+                    <td class="for-print">طبقه</td>
+                    <td class="for-print">زیربنا</td>
+                    <td class="for-print">خواب</td>          
+                    <td class="for-print">کفپوش</td>          
+                    <td class="for-print">پارکینگ</td>
+                    <td class="for-print">انباری</td>
+                    </tr>
+                    <tr class="for-print">
+                    <td class="for-print">{{object.floor}}</td>
+                    <td class="for-print">{{object.metraj}}</td>
+                    <td class="for-print">{{object.room_qty}}</td>                                  
+                    <td class="for-print">{{object.elevator}}</td>
+                    {% if object.parking %}
+                    <td class="for-print">
+                    <i class="fa fa-{{'check-'}}square-o for-print" aria-hidden="true"></i>
+                    </td>
+                    {% else %}
+                    <td class="for-print">
+                        <i class="fa fa-square-o for-print" aria-hidden="true"></i>
+                        </td>
+                    {% endif %}
+                    {% if object.storage_room %}
+                    <td class="for-print">
+                    <i class="fa fa-{{'check-'}}square-o for-print" aria-hidden="true"></i>
+                    </td>
+                    {% else %}
+                    <td class="for-print">
+                        <i class="fa fa-square-o for-print" aria-hidden="true"></i>
+                        </td>
+                    {% endif %}
+                    </tr>
+                    </tbody>
+                    </table>
+              </div>
+              <div class="col-12 mb-2"> <span class="label-data" style="width: 104px;">‌توضیحات : </span></div>
+              <div class="col-12"><span>{{object.additional_information}}</span></div>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="mainImg mt-5 col-xxl-3 col-md-12 d-flex flex-column">
+      <div class="contImgside">
+          <h5 class="text-center">تصویر ملک</h5>
+          <div class="imgfile rounded align-self-center mb-1" style="border: 1px solid #857f7f;">
+              <a href="../{{object.image}}" data-fancybox="gallery" data-caption="{{object.title}}">
+                <img class="rounded" src="../{{object.image}}" alt="Image Gallery">
+              </a>
+           
+      </div>
+      {% if object.image2 %}
+       <div class="imgfile rounded align-self-center d-none">
+          <a href="../{{object.image2}}" data-fancybox="gallery" data-caption="{{object.title}}">
+            <img src="../{{object.image2}}" alt="Image Gallery">
+          </a>
+         </div>
+         {% endif %}
+         {% if object.image3 %}
+         <div class="imgfile rounded align-self-center d-none">
+          <a href="../{{object.image3}}" data-fancybox="gallery" data-caption="{{object.title}}">
+            <img src="../{{object.image3}}" alt="Image Gallery">
+          </a>
+         </div>
+         {% endif %}
+  </div>
+  </div>
+    
+</div>
+{% endblock %}
+{% block jslib %}
+  <script src="{% static 'app/js/bootstrap.js' %}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script>
+    // Fancybox Config
+$('[data-fancybox="gallery"]').fancybox({
+    buttons: [
+      "slideShow",
+      "thumbs",
+      "zoom",
+      "fullScreen",
+      "share",
+      "close"
+    ],
+    loop: false,
+    protect: true
+  });
+
+    (function($) {
+        $.fn.prettynumber = function(options) {
+          var opts = $.extend({}, $.fn.prettynumber.defaults, options);
+          return this.each(function() {
+            $this = $(this);
+            var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
+            var str = $this.html();
+            $this.html($this.html().toString().replace(new RegExp("(^\\d{"+($this.html().toString().length%3||-1)+"})(?=\\d{3})"),"$1"+o.delimiter).replace(/(\d{3})(?=\d)/g,"$1"+o.delimiter));
+          });
+        };
+        $.fn.prettynumber.defaults = {
+          delimiter       : '.'	
+        };
+      })($);
+      
+    $(document).ready(function(){
+        $(".pricedet").prettynumber({delimiter : ','});
+        d = $(".file-date").text();
+        d = d.replaceAll("-","/") ;
+        $(".file-date").text(d);
+    
+    });
+    
+    </script>
+{% endblock %}
